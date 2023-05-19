@@ -49,10 +49,12 @@ function App() {
 
 
   return (
-    <div className="bg-black h-screen">
-<h1 className="text-white">TrustDrop</h1>
+    <div className="">
+<h1 className="text-base">TrustDrop</h1>
 
-<p className="text-white">Account :{account ? account:"not cnnecged"}</p>
+<p className="text-base">Account :{account ? account:"not cnnecged"}</p>
+ <FileUpload account={account}  provider={provider} contract={contract}/>
+
     </div>
   );
 }
