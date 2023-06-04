@@ -1,8 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+
+
+
+
 export default function FileUpload({contract,account,provider})
 {
+    
     const[file,setFile]=useState(null)
     const[name,setName]=useState("No image selected")
     const handlesubmit=async(e)=>{
@@ -13,20 +18,21 @@ if(file)
      
         const formData = new FormData();
         formData.append("file", file);
+console.log("file hre")
 
         const resFile = await axios({
             method: "post",
             url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
             data: formData,
             headers: {
-                'pinata_api_key': `${process.env.PINATA_API_KEY}`,
-                'pinata_secret_api_key': `${process.env.PINATA_API_SECRET}`,
+                'pinata_api_key': `ca64123b8f891b5ad311`,
+                'pinata_secret_api_key': `4be02f8ff8555c6c76d0c0325de38212cadacaa601831acd9605ad53d9f272f0`,
                 "Content-Type": "multipart/form-data"
             },
         });
         const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
      //   const signer=contract.conect(provider.getSigner());
-        await contract.add(account,ImgHash)
+         contract.add(account,ImgHash)
         alert("successfulll yuploaded")
         setFile(null)
         setName('no image selected')
@@ -46,7 +52,7 @@ if(file)
         read.onload=()=>{
             setFile(e.target.files[0])
         }
-        setName(e.target.file[0].name)
+        setName(e.target.files[0].name);
         e.preventDefault()
 
     }
@@ -56,7 +62,7 @@ if(file)
 <label htmlFor="fileupload">FIle Uplaod</label>
 <input disabled={!account} type="file" id="fileupload"name="data"onChange={retrive}/>
 <span>{name}</span>
-<button type="submit">Submit</button>
+<button disabled={!file} type="submit">Submit</button>
         </form>
        </div>
     )

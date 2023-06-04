@@ -3,6 +3,7 @@ import { useState,useEffect } from "react";
 
 import Upload from "../src/artifact/contracts/Upload.sol/Upload.json"
 import FileUpload from "./compoennts/FileUpload";
+import Display from "./compoennts/Display";
 const ethers = require("ethers")
 function App() {
   const[account,setAccount]=useState("")
@@ -54,9 +55,8 @@ function App() {
 
 <p className="text-base">Account :{account ? account:"not cnnecged"}</p>
  <FileUpload account={account}  provider={provider} contract={contract}/>
-
+ <Display contract={contract} account={account}/>
     </div>
-  );
-}
+   )  }
 
 export default App;
